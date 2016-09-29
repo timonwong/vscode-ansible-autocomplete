@@ -9,9 +9,9 @@ export class AnsibleCompletionItemProvider implements CompletionItemProvider {
         this.completionEngine = new CompletionEngine();
     }
 
-    provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken): CompletionItem[] {
+    provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken): Promise<CompletionItem[]> {
         if (!this.completionEngine.ready()) {
-            return [];
+            return Promise.resolve([]);
         }
 
         let range = document.getWordRangeAtPosition(position);

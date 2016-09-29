@@ -3,12 +3,14 @@
   "displayName": "ansible-autocomplete",
   "description": "Ansible autocompletion",
   "keywords": [
-    "Ansible"
+    "Ansible",
+    "Snippets"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "timonwong",
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.5.0"
+    "vscode": "^1.0.0"
   },
   "categories": [
     "Languages"
@@ -16,10 +18,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/timonwong/ansible-autocomplete"
+    "url": "https://github.com/timonwong/vscode-ansible-autocomplete"
   },
   "bugs": {
-    "url": "https://github.com/timonwong/ansible-autocomplete/issues"
+    "url": "https://github.com/timonwong/vscode-ansible-autocomplete/issues"
   },
   "activationEvents": [
     "onLanguage:ansible",

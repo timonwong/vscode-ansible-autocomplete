@@ -46,7 +46,7 @@ export class AnsibleCompletionData {
     }
 }
 
-export function parseAnsibleJSONData(data: string): AnsibleCompletionData {
+export function parseAnsibleCompletionData(data: string): AnsibleCompletionData {
     let ansibleData = <AnsibleJSONData>JSON.parse(data);
 
     let modules = ansibleData.modules.map((elm) => {
@@ -79,7 +79,7 @@ export function parseAnsibleJSONData(data: string): AnsibleCompletionData {
 }
 
 
-export function parseAnsibleJSONFile(filename?: string): Promise<AnsibleCompletionData> {
+export function parseAnsibleCompletionFile(filename?: string): Promise<AnsibleCompletionData> {
     if (!filename) {
         filename = path.join(__dirname, '../../data/ansible-data.json');
     }
@@ -89,7 +89,7 @@ export function parseAnsibleJSONFile(filename?: string): Promise<AnsibleCompleti
             if (err) {
                 reject(err);
             } else {
-                resolve(parseAnsibleJSONData(data));
+                resolve(parseAnsibleCompletionData(data));
             }
         });
     });

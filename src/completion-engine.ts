@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { CompletionItem, CompletionItemKind } from 'vscode';
 import { filter } from 'fuzzaldrin-plus';
-import { parseAnsibleJSONFile, AnsibleCompletionData, AnsibleCompletionItemList } from './data';
+import { parseAnsibleCompletionFile, AnsibleCompletionData, AnsibleCompletionItemList } from './data';
 
 
 const SNIPPET_REGEXP = /^\s*(-?)[^:]*(:?)\s+(([0-9a-zA-Z_]+)([ar]))$/;
@@ -10,13 +10,12 @@ export class CompletionEngine {
     private data: AnsibleCompletionData;
 
     constructor() {
-        parseAnsibleJSONFile()
+        parseAnsibleCompletionFile()
             .then((completionData) => {
                 this.data = completionData;
             })
             .catch((err) => {
-                console.log(err);
-                vscode.window.showErrorMessage(err);
+                vscode.window.showErrorMessage(`ansible-autocomplete: Cannot parse completion data file: ${err.message}`);
             });
     }
 
@@ -24,7 +23,7 @@ export class CompletionEngine {
         return !!this.data;
     }
 
-    getCompletions(prefix: string, line: string): CompletionItem[] {
+    getCompletions(prefix: string, line: string): Promise<CompletionItem[]> {
         let moduleRegexp = new RegExp(`^\\s*-?\\s+(action\\s*:\\s+|local_action\\s*:\\s+|)${prefix}$`);
         let result = this.getSnippets(line.match(SNIPPET_REGEXP));
         let moduleMatch = line.match(moduleRegexp);
@@ -38,7 +37,7 @@ export class CompletionEngine {
             Array.prototype.push.apply(result, getFuzzySuggestions(this.data.modules, prefix));
         }
 
-        return result;
+        return Promise.resolve(result);
     }
 
     private getSnippets(match: RegExpMatchArray): CompletionItem[] {
