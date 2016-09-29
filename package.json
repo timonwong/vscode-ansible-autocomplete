@@ -1,7 +1,10 @@
 {
   "name": "ansible-autocomplete",
   "displayName": "ansible-autocomplete",
-  "description": "",
+  "description": "Ansible autocompletion",
+  "keywords": [
+    "Ansible"
+  ],
   "version": "0.0.1",
   "publisher": "timonwong",
   "engines": {
