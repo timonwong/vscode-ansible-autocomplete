@@ -79,7 +79,9 @@ export class CompletionEngine {
                 continue;
             }
 
-            let snip = `{{${i}:${option.default}  # ${option.description}}}`;
+            let defaultValue = option.default === 'None' ? null : option.default;
+            defaultValue = (defaultValue) ? (defaultValue + ' ') : '';
+            let snip = `${defaultValue}  # ${option.description}`;
             if (['free_form', 'free-form'].indexOf(argName) >= 0) {
                 if (hasColon) {
                     lines.push(`\t_raw_params: ${snip}`);
